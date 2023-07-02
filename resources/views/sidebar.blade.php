@@ -13,7 +13,7 @@
     <ul class="nav">
       <li class="nav-item nav-category">Main</li>
       <li class="nav-item">
-        <a href="../../dashboard.html" class="nav-link">
+        <a href="{{route('dashboard')}}" class="nav-link">
           <i class="link-icon" data-feather="box"></i>
           <span class="link-title">Dashboard</span>
         </a>
@@ -22,20 +22,18 @@
       <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#emails" role="button" aria-expanded="false" aria-controls="emails">
           <i class="link-icon" data-feather="mail"></i>
-          <span class="link-title">Email</span>
+          <span class="link-title">Upcoming Celebrants</span>
           <i class="link-arrow" data-feather="chevron-down"></i>
         </a>
         <div class="collapse" id="emails">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="../../pages/email/inbox.html" class="nav-link">Inbox</a>
+              <a href="{{route('upcoming.birthdays')}}" class="nav-link">Upcoming Birthdays</a>
             </li>
             <li class="nav-item">
-              <a href="../../pages/email/read.html" class="nav-link">Read</a>
+              <a href="{{route('upcoming.weddings')}}" class="nav-link">Upcoming Weddings</a>
             </li>
-            <li class="nav-item">
-              <a href="../../pages/email/compose.html" class="nav-link">Compose</a>
-            </li>
+            
           </ul>
         </div>
       </li>
@@ -55,26 +53,10 @@
         </a>
       </li>
      
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#errorPages" role="button" aria-expanded="false" aria-controls="errorPages">
-          <i class="link-icon" data-feather="cloud-off"></i>
-          <span class="link-title">Error</span>
-          <i class="link-arrow" data-feather="chevron-down"></i>
-        </a>
-        <div class="collapse" id="errorPages">
-          <ul class="nav sub-menu">
-            <li class="nav-item">
-              <a href="../../pages/error/404.html" class="nav-link">404</a>
-            </li>
-            <li class="nav-item">
-              <a href="../../pages/error/500.html" class="nav-link">500</a>
-            </li>
-          </ul>
-        </div>
-      </li>
+      
       <li class="nav-item nav-category">Docs</li>
       <li class="nav-item">
-        <a href="https://www.nobleui.com/html/documentation/docs.html" target="_blank" class="nav-link">
+        <a href="" target="_blank" class="nav-link">
           <i class="link-icon" data-feather="hash"></i>
           <span class="link-title">Documentation</span>
         </a>

@@ -18,11 +18,22 @@
           <div id="dataTableExample_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
             
           <div class="row">
-            <div class="col-sm-12">
-            <table id="dataTableExample" class="table dataTable no-footer" aria-describedby="dataTableExample_info">
-            <thead>
-              <tr><th class="sorting sorting_asc" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 271.875px;">SL</th><th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420.172px;">Name</th><th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 207px;">Phone</th><th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 94.3438px;">Email</th><th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 191.281px;">Birthday</th><th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 142.766px;">Wedding</th></tr>
-            </thead>
+            <div class="col-sm-12 object-contained">
+             <table id="dataTableExample" class="table table-hover dataTable no-footer" aria-describedby="dataTableExample_info">
+              <thead>
+                <tr><th class="sorting sorting_asc" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 271.875px;">SL</th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 420.172px;">Name</th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 207px;">Phone</th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 94.3438px;">Email</th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 207px;">Birthday</th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 94.3438px;">Wedding</th>
+                  <th class="sorting" tabindex="0" aria-controls="dataTableExample" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 94.3438px;">Action</th>
+                </tr>
+              </thead>
+
+
+
+
             <tbody>
             @php
                 
