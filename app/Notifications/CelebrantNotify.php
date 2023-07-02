@@ -26,7 +26,7 @@ private $upcomingBirthdays;
         $endDate = $today->copy()->addDays(30);
 
         //$user = Auth::user();
-        $user = User::find(19); 
+        $user = Auth::user()->id; 
         $upcomingWeddings = $user->anniversary()
             ->whereNotNull('wedding')
             ->whereRaw("DATE_FORMAT(wedding, '%m-%d') BETWEEN '{$today->format('m-d')}' AND '{$endDate->format('m-d')}'")
