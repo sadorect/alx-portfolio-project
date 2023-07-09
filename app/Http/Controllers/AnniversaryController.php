@@ -119,7 +119,7 @@ class AnniversaryController extends Controller
         ];
     
         // Send the notification to the user
-      //  Notification::send($user, new CelebrantNotify($notificationData));
+        Notification::send($user, new CelebrantNotify($notificationData));
         
 
         return view('records.upcomingWeddings', compact('upcomingWeddings'));

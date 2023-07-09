@@ -19,7 +19,7 @@ class AnniversaryFactory extends Factory
     {
 
         return [
-            'user_id' => 19,
+            'user_id' => 1,
             'title' => fake()->title,
             'name' => fake()->name,
             'phone' => fake()->phoneNumber,
