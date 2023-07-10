@@ -42,6 +42,8 @@ Route::get('/delete/record/{id}', [AnniversaryController::class, 'deleteRecord']
 Route::get('/upcoming/birthdays', [AnniversaryController::class, 'upcomingBirthdays'])->name('upcoming.birthdays');
 Route::get('/upcoming/weddings', [AnniversaryController::class, 'upcomingWeddings'])->name('upcoming.weddings');
 
+Route::get('/send/notice', [AnniversaryController::class, 'sendNotice'])->name('send.notice');
+
 });
 
 

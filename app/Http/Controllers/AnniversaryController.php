@@ -6,7 +6,9 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Anniversary;
 use Illuminate\Http\Request;
+use App\Jobs\SendNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Queue;
 use App\Notifications\CelebrantNotify;
 use Illuminate\Support\Facades\Notification;
 
@@ -15,11 +17,15 @@ class AnniversaryController extends Controller
     //
     protected $today;
     protected $endDate;
+    protected $upcomingBirthdays;
+    protected $upcomingWeddings;
+    
 
     public function __construct()
     {
         $this->today = Carbon::today();
         $this->endDate = $this->today->copy()->addDays(30);
+       
     }
 
     public function postRecord(Request $request){
@@ -41,7 +47,11 @@ class AnniversaryController extends Controller
     
         $record->save();
 
-        return view('records.view');
+        $msgStatus = array(
+            'message' => 'Record Successfully Added',
+            'alert-type' => 'success'
+        );
+        return view('records.view')->with($msgStatus);
     }
 
     public function showRecord($id){
@@ -53,7 +63,11 @@ class AnniversaryController extends Controller
     }
 
     public function addRecord(){
-        return view('records.add');
+        $msgStatus = array(
+            'message' => 'You can add new celebrants here. The dates do not have to be exact year. Only the month and day are required to be exact anniversary dates.',
+            'alert-type' => 'success'
+        );
+        return view('records.add')->with($msgStatus);
     }
 
 
@@ -65,12 +79,19 @@ class AnniversaryController extends Controller
 
     public function deleteRecord($id){
         Anniversary::findOrFail($id)->delete();
-        return redirect()->back();
+
+        $msgStatus = array(
+            'message' => 'Record Successfully Deleted',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($msgStatus);
     }
 
 
     public function updateRecord(Request $request){
-
+        $incoming = $request->validate([
+            'phone' => 'required',
+        ]);
         Anniversary::findOrFail($request->id)->update([
             'name' => $request->name,
             'phone' => $request->phone,
@@ -79,7 +100,12 @@ class AnniversaryController extends Controller
             'wedding' => $request->wedding,
         ]);
 
-        return view('records.view')->with('success','Celebrant Successfully Updated');
+        $msgStatus = array(
+            'message' => 'Celebrant Successfully Updated',
+            'alert-type' => 'success'
+        ); 
+
+        return view('records.view')->with($msgStatus);
     }
 
     public function upcomingBirthdays()
@@ -91,6 +117,7 @@ class AnniversaryController extends Controller
             ->whereRaw("DATE_FORMAT(birthday, '%m-%d') BETWEEN '{$this->today->format('m-d')}' AND '{$this->endDate->format('m-d')}'")
             ->orderByRaw("DATE_FORMAT(birthday, '%m-%d') ASC")
             ->get();
+$this->upcomingBirthdays = $upcomingBirthdays;
 
             foreach ($upcomingBirthdays as $birthday) {
                 $birthday->formatted_date = Carbon::parse($birthday->birthday)->format('F jS');
@@ -108,23 +135,34 @@ class AnniversaryController extends Controller
             ->whereRaw("DATE_FORMAT(wedding, '%m-%d') BETWEEN '{$this->today->format('m-d')}' AND '{$this->endDate->format('m-d')}'")
             ->orderByRaw("DATE_FORMAT(wedding, '%m-%d') ASC")
             ->get();
-    
+
+            $this->upcomingWeddings = $upcomingWeddings;
+
         foreach ($upcomingWeddings as $wedding) {
             $wedding->formatted_date = Carbon::parse($wedding->wedding)->format('F jS');
         }
     
-        // Prepare the notification data
-        $notificationData = [
-            'upcomingWeddings' => $upcomingWeddings,
-        ];
-    
-        // Send the notification to the user
-      //  Notification::send($user, new CelebrantNotify($notificationData));
-        
-
+         
         return view('records.upcomingWeddings', compact('upcomingWeddings'));
     }
     
 
-   
+   public function sendNotice() {
+    $user = Auth::user();
+     // Prepare the notification data
+     $notificationData = [
+        'user' => $user, // Pass the $user object
+        'upcomingWeddings' => $this->upcomingWeddings,
+    ];
+
+    // Send the notification to the user
+   // Notification::send($user, new CelebrantNotify($notificationData));
+     // Dispatch the notification to the queue
+    dispatch(new SendNotification($user, $notificationData));
+    $msgStatus = array(
+        'message' => 'Notification sent to your email',
+        'alert-type' => 'success'
+    ); 
+    return redirect()->back()->with($msgStatus);
+   }
 }

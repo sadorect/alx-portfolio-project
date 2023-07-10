@@ -75,14 +75,19 @@
               </label>
             </div>
             <button type="submit" class="btn btn-primary me-2">Update</button>
-            <button class="btn btn-secondary">Cancel</button>
+            <button type="reset" onclick="goBack()" class="btn btn-secondary">Cancel</button>
           </form>
 
         </div>
       </div>
     </div>
   </div>
-  
+  <script>
+    function goBack() {
+      // Redirect to the previous page
+      window.history.back();
+    }
+  </script>
 
 </div>
 @endsection

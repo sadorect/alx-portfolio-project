@@ -6,8 +6,8 @@
 
   <nav class="page-breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Forms</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Basic Elements</li>
+      <li class="breadcrumb-item"><a href="#">Add</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Celebrant</li>
     </ol>
   </nav>
 
@@ -17,7 +17,7 @@
       <div class="card">
         <div class="card-body">
 
-          <h6 class="card-title">Anniversary Record</h6>
+          <h6 class="card-title">ADD NEW CELEBRANT</h6>
 
           <form method="POST" action="{{route('post.record')}}"  class="forms-sample">
             @csrf
@@ -74,14 +74,19 @@
               </label>
             </div>
             <button type="submit" class="btn btn-primary me-2">Submit</button>
-            <button class="btn btn-secondary">Cancel</button>
+            <button type="reset" onclick="goBack()" class="btn btn-secondary">Cancel</button>
           </form>
 
         </div>
       </div>
     </div>
   </div>
-  
+  <script>
+    function goBack() {
+      // Redirect to the previous page
+      window.history.back();
+    }
+  </script>
 
 </div>
 @endsection
