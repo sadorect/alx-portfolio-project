@@ -65,4 +65,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 # alx-portfolio-project
+My anniversary project
+
+The Team members are Tosin Omojola and Myself. As an app we wanted to focus on 2 things: creating an experience that would be both web and mobile-friendly, and making life easy for users that login to the page. TOSIN worked on the design and I worked on The Documentation
 # alx-portfolio-project
