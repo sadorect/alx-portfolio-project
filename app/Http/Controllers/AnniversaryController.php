@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Notification;
 
 class AnniversaryController extends Controller
 {
-    //
+    /**
+     * Initialize global variables for use across all functions
+     */
     protected $today;
     protected $endDate;
     protected $upcomingBirthdays;
@@ -28,6 +30,9 @@ class AnniversaryController extends Controller
        
     }
 
+    /**
+     * Store celebrants records with proper validation.
+     */
     public function postRecord(Request $request){
 
         $validatedData = $request->validate([
@@ -51,9 +56,13 @@ class AnniversaryController extends Controller
             'message' => 'Record Successfully Added',
             'alert-type' => 'success'
         );
+        //return to the list view ( with success notification ) after successful record addition
         return view('records.view')->with($msgStatus);
     }
 
+/**
+ * Display paginated list of celebrants fir the authenticated user
+ */
     public function showRecord($id){
         $userId = $id; // Assuming you have the user ID stored in the variable $id
 
@@ -62,6 +71,9 @@ class AnniversaryController extends Controller
         return view('records.view', compact('celebrants'));
     }
 
+    /**
+     * Add New celebrant
+     */
     public function addRecord(){
         $msgStatus = array(
             'message' => 'You can add new celebrants here. The dates do not have to be exact year. Only the month and day are required to be exact anniversary dates.',
@@ -70,13 +82,17 @@ class AnniversaryController extends Controller
         return view('records.add')->with($msgStatus);
     }
 
-
+/**
+ * Edit celebrants records
+ */
     public function editRecord($id){
         $celebrant = Anniversary::where('id', $id)->first();
         return view('records.edit', compact('celebrant'));
     }
 
-
+/**
+ * Delete celebrants records
+ */
     public function deleteRecord($id){
         Anniversary::findOrFail($id)->delete();
 
@@ -87,7 +103,9 @@ class AnniversaryController extends Controller
         return redirect()->back()->with($msgStatus);
     }
 
-
+/**
+ * update celebrant's records
+ */
     public function updateRecord(Request $request){
         $incoming = $request->validate([
             'phone' => 'required',
@@ -110,6 +128,10 @@ class AnniversaryController extends Controller
 
     public function upcomingBirthdays()
     {
+        /**
+         * Query the database for upcoming birthday celebrants for the authenticated user
+         * Date range is within a 30-day interval. Can be modified as required
+         */
         
         $user = Auth::user();
         $upcomingBirthdays = $user->anniversary()
@@ -127,7 +149,10 @@ $this->upcomingBirthdays = $upcomingBirthdays;
 
     public function upcomingWeddings()
     {
-        
+        /**
+         * Query the database for upcoming wedding celebrants for the authenticated user
+         * Date range is within a 30-day interval. Can be modified as required
+         */
     
         $user = Auth::user();
         $upcomingWeddings = $user->anniversary()
@@ -144,8 +169,11 @@ $this->upcomingBirthdays = $upcomingBirthdays;
     
          
         return view('records.upcomingWeddings', compact('upcomingWeddings'));
-    }
-    
+    }// End Upcoming weddings Method
+
+    /**
+     * Prepare notification data to be sent to the email notification template along with the authenticated user
+     */
 
    public function sendNotice() {
     $user = Auth::user();
@@ -155,8 +183,7 @@ $this->upcomingBirthdays = $upcomingBirthdays;
         'upcomingWeddings' => $this->upcomingWeddings,
     ];
 
-    // Send the notification to the user
-   // Notification::send($user, new CelebrantNotify($notificationData));
+    
      // Dispatch the notification to the queue
     dispatch(new SendNotification($user, $notificationData));
     $msgStatus = array(
