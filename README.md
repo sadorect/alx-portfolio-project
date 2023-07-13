@@ -1,4 +1,5 @@
-<p align="center"><a href="https://myanniversary.com.ng" target="_blank"><img src="public/frontend/src/images/anniversary-keeper.png" width="400" alt="Anniversary Keeper Logo"></a></p>
+![Anniversary Keeper](/frontend/src/images/anniversary-keeper.png)
+
 
 
 ## About Anniversary keeper
@@ -24,7 +25,7 @@ To get started with the Anniversary app on your local machine, follow the steps 
 **Clone the repository:** Begin by cloning this repository to your local machine using the following command:
 
 ```
-git clone https://github.com/your-username/anniversary-app.git
+git clone https://github.com/sadorect/anniversary-keeper.git
 ```
 
 **Install dependencies:** Navigate into the cloned repository's directory and install the required dependencies using Composer:
@@ -113,8 +114,8 @@ Additional technologies and tools used in the development of the Anniversary app
 ## Acknowledgements
 this project is a joint effort of myself and Goddey Ogonna Bekee
 
-[Tosin Omojola]: [https://github.com/sadorect]
-[Goddey Bekee]: [https://github.com/EngrOgonna]
+**Tosin Omojola:** [https://github.com/sadorect]
+**Goddey Bekee:** [https://github.com/EngrOgonna]
 
 We appreciate the open-source community and the invaluable resources they provide.
 
