@@ -127,9 +127,5 @@ We appreciate the open-source community and the invaluable resources they provid
 ## Contact Information
 For any questions, suggestions, or feedback regarding the Anniversary app, please feel free to reach out to us:
 
-Email: [sadorect@gmail.com]
-Twitter: [@sadorect]
-GitHub: [https://github.com/sadorect]
-We are open to collaboration and welcome any contributions to further improve the Anniversary app.
 
 Thank you for your interest and support!
