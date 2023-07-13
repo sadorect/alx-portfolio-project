@@ -1,4 +1,4 @@
-<p align="center"><a href="https://myanniversary.com.ng" target="_blank"><img src="{{asset('/frontend/src/images/anniversary-keeper.png')}}" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://myanniversary.com.ng" target="_blank"><img src="public/frontend/src/images/anniversary-keeper.png" width="400" alt="Anniversary Keeper Logo"></a></p>
 
 
 ## About Anniversary keeper
