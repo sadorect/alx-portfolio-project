@@ -1,4 +1,5 @@
-![Anniversary Keeper](/frontend/src/images/anniversary-keeper.png)
+
+![Landing Page](https://github.com/sadorect/my-anniversary-keeper/assets/24244892/7ade110b-c322-40b2-95e1-b56e1ec675cd)
 
 
 
