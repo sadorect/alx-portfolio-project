@@ -32,7 +32,7 @@ git clone https://github.com/sadorect/anniversary-keeper.git
 **Install dependencies:** Navigate into the cloned repository's directory and install the required dependencies using Composer:
 
 ```
-cd anniversary-app
+cd anniversary-keeper
 composer install
 npm install
 ```
