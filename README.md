@@ -1,7 +1,7 @@
-<p align="center"><a href="https://myanniversary.com.ng" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://myanniversary.com.ng" target="_blank"><img src="{{asset('frontend/src/images/anniversary-keeper.png')}}" width="400" alt="MyAnniversary Logo"></a></p>
 
 
-## About Anniversary keeper
+## About Anniversary Keeper
 
 **Project Overview**
 The Anniversary app is a web application designed to simplify the management and celebration of special occasions for users. It serves as a centralized platform for storing contact details of celebrants, including their birthdays and wedding anniversaries.
