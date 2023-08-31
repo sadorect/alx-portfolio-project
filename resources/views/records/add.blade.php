@@ -76,8 +76,18 @@
             <button type="submit" class="btn btn-primary me-2">Submit</button>
             <button type="reset" onclick="goBack()" class="btn btn-secondary">Cancel</button>
           </form>
+<hr>
+          <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Upload CSV Data</label>
+          <form action="/upload-csv" method="POST" enctype="multipart/form-data" class="forms-sample">
+            @csrf
+            <input type="hidden" name="user_id" value="{{Auth::user()->id}}" class="form-control" id="exampleInputUsername2" placeholder="Name">
+            <input class="form-control" type="file" name="csv_file" accept=".csv">
+            <button class="btn btn-primary me-2" type="submit">Upload CSV</button>
+        </form>
 
         </div>
+
+        
       </div>
     </div>
   </div>

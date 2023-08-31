@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CsvDataController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AnniversaryController;
 
@@ -43,6 +44,10 @@ Route::get('/upcoming/birthdays', [AnniversaryController::class, 'upcomingBirthd
 Route::get('/upcoming/weddings', [AnniversaryController::class, 'upcomingWeddings'])->name('upcoming.weddings');
 
 Route::get('/send/notice', [AnniversaryController::class, 'sendNotice'])->name('send.notice');
+
+Route::get('/upload-csv', [CsvDataController::class, 'showUploadForm']);
+Route::post('/upload-csv', [CsvDataController::class, 'uploadCsv']);
+
 
 });
 
