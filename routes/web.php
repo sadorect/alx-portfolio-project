@@ -48,6 +48,8 @@ Route::get('/send/notice', [AnniversaryController::class, 'sendNotice'])->name('
 Route::get('/upload-csv', [CsvDataController::class, 'showUploadForm']);
 Route::post('/upload-csv', [CsvDataController::class, 'uploadCsv']);
 
+Route::get('/download-sample-csv', [CsvDataController::class, 'downloadSampleCsv'])->name('download.sample.csv');
+
 
 });
 

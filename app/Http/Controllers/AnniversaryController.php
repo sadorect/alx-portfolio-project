@@ -10,6 +10,7 @@ use App\Jobs\SendNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Queue;
 use App\Notifications\CelebrantNotify;
+
 use Illuminate\Support\Facades\Notification;
 
 class AnniversaryController extends Controller
@@ -310,4 +311,6 @@ class AnniversaryController extends Controller
     ); 
     return redirect()->back()->with($msgStatus);
    }
+
+ 
 }

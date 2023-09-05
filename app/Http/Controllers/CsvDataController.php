@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\CsvData;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 //use App\Http\Controllers\CsvDataController;
 class CsvDataController extends Controller
 {
@@ -71,5 +73,16 @@ public function uploadCsv(Request $request)
     }
 
     return back()->with('error', 'Please upload a CSV file.');
+    }
+
+    public function downloadSampleCsv()
+    {
+        $path = public_path('myanniversary_sample_data.csv');
+        
+        if (file_exists($path)) {
+            return Response::download($path, 'myanniversary_sample_data.csv');
+        } else {
+            abort(404);
+        }
     }
 }

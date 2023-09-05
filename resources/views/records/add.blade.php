@@ -67,20 +67,24 @@
                 @enderror
               </div>
             </div>
-            <div class="form-check mb-3">
+           {{--  <div class="form-check mb-3">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">
                 Remember me
               </label>
-            </div>
+            </div> --}}
+            <div class="items-center">
             <button type="submit" class="btn btn-primary me-2">Submit</button>
             <button type="reset" onclick="goBack()" class="btn btn-secondary">Cancel</button>
+            </div>
           </form>
 <hr>
-          <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Upload CSV Data</label>
+          <label for="exampleInputPassword2" class="col-sm-3 col-form-label"><strong>UPLOAD CSV DATA</strong></label>
         
           <form action="/upload-csv" method="POST" enctype="multipart/form-data" class="forms-sample">
             @csrf
+            <a href="{{route('download.sample.csv')}}" class="btn btn-primary place-items-end">Download Sample CSV</a>
+
             <input type="hidden" name="user_id" value="{{Auth::user()->id}}" class="form-control" id="exampleInputUsername2" placeholder="Name">
             <input class="form-control" type="file" name="csv_file" accept=".csv">
             <button class="btn btn-primary me-2" type="submit">Upload CSV</button>
