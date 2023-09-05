@@ -17,6 +17,7 @@ class AnniversaryController extends Controller
     /**
      * Initialize global variables for use across all functions
      */
+    protected $thisMonth;
     protected $today;
     protected $endDate;
     protected $upcomingBirthdays;
@@ -139,12 +140,40 @@ class AnniversaryController extends Controller
             ->whereRaw("DATE_FORMAT(birthday, '%m-%d') BETWEEN '{$this->today->format('m-d')}' AND '{$this->endDate->format('m-d')}'")
             ->orderByRaw("DATE_FORMAT(birthday, '%m-%d') ASC")
             ->get();
-$this->upcomingBirthdays = $upcomingBirthdays;
+        $this->upcomingBirthdays = $upcomingBirthdays;
+
+        // Fetch records for the current month
+            $currentMonthBirthday = $user->anniversary()
+                            ->whereNotNull('birthday')
+                            ->whereMonth('birthday', $this->today->month)
+                           // ->whereDay('birthday', $this->today->day)
+                            ->orderBy('birthday')
+                            ->get();
+
+            // Fetch records for the current week
+            $currentWeekBirthday = $user->anniversary()
+            ->whereNotNull('birthday')
+            ->whereBetween('birthday', [
+                $this->today->startOfWeek(), // Start of the current week
+                $this->today->endOfWeek()   // End of the current week
+            ])
+            ->orderByRaw("DATE_FORMAT(birthday, '%m-%d') ASC")
+            ->get();
+
+            foreach ($currentMonthBirthday as $monthBirthday) {
+                $monthBirthday->formatted_date = Carbon::parse($monthBirthday->monthBirthday)->format('F jS');
+            }
+
+            foreach ($currentWeekBirthday as $weekBirthday) {
+                $weekBirthday->formatted_date = Carbon::parse($weekBirthday->weekBirthday)->format('F jS');
+            }
 
             foreach ($upcomingBirthdays as $birthday) {
                 $birthday->formatted_date = Carbon::parse($birthday->birthday)->format('F jS');
             }
-        return view('records.upcomingBirthdays', compact('upcomingBirthdays'));
+
+
+        return view('records.upcomingBirthdays', compact('upcomingBirthdays', 'currentMonthBirthday', 'currentWeekBirthday'));
     }
 
     public function upcomingWeddings()
@@ -153,7 +182,22 @@ $this->upcomingBirthdays = $upcomingBirthdays;
          * Query the database for upcoming wedding celebrants for the authenticated user
          * Date range is within a 30-day interval. Can be modified as required
          */
-    
+    // Fetch records for the current month
+    $user = Auth::user();
+    $currentMonthWedding = $user->anniversary()
+    ->whereNotNull('wedding')
+    ->whereMonth('wedding', $this->today->month)
+   // ->whereDay('wedding', $this->today->day)
+    ->orderBy('wedding')
+    ->get();
+
+    foreach ($currentMonthWedding as $monthWedding) {
+        $monthWedding->formatted_date = Carbon::parse($monthWedding->monthWedding)->format('F jS');
+    }
+
+    /* foreach ($currentWeekWedding as $weekWedding) {
+        $weekWedding->formatted_date = Carbon::parse($weekWedding->weekWedding)->format('F jS');
+    } */
         $user = Auth::user();
         $upcomingWeddings = $user->anniversary()
             ->whereNotNull('wedding')
@@ -168,9 +212,83 @@ $this->upcomingBirthdays = $upcomingBirthdays;
         }
     
          
-        return view('records.upcomingWeddings', compact('upcomingWeddings'));
+        return view('records.upcomingWeddings', compact('upcomingWeddings', 'currentMonthWedding'));
     }// End Upcoming weddings Method
 
+
+    public function currentMonthWedding(){
+        $user = Auth::user();
+        $today = $this->today;
+
+        // Fetch records for the current month
+        $currentMonthWeddings = $user->anniversary()
+            ->whereNotNull('wedding')
+            ->whereMonth('wedding', '=', $today->month)
+            ->orderBy('wedding')
+            ->get();
+
+        // Fetch records for the current week
+        $currentWeekWeddings = $user->anniversary()
+            ->whereNotNull('wedding')
+            ->whereBetween('wedding', [
+                $today->startOfWeek(), // Start of the current week
+                $today->endOfWeek()   // End of the current week
+            ])
+            ->orderBy('wedding')
+            ->get();
+
+        $this->upcomingWeddings = [
+            'currentMonth' => $currentMonthWeddings,
+            'currentWeek' => $currentWeekWeddings
+        ];
+
+        foreach ($currentMonthWeddings as $wedding) {
+            $wedding->formatted_date = Carbon::parse($wedding->wedding)->format('F jS');
+        }
+
+        foreach ($currentWeekWeddings as $wedding) {
+            $wedding->formatted_date = Carbon::parse($wedding->wedding)->format('F jS');
+        }
+
+    }
+
+
+
+    public function currentMonthBirthday(){
+        $user = Auth::user();
+        $today = $this->today;
+
+        // Fetch records for the current month
+        $currentMonthBirthdays = $user->anniversary()
+            ->whereNotNull('birthday')
+            ->whereMonth('birthday', '=', $today->month)
+            ->orderBy('birthday')
+            ->get();
+
+        // Fetch records for the current week
+        $currentWeekBirthdays = $user->anniversary()
+            ->whereNotNull('birthday')
+            ->whereBetween('birthday', [
+                $today->startOfWeek(), // Start of the current week
+                $today->endOfWeek()   // End of the current week
+            ])
+            ->orderBy('birthday')
+            ->get();
+
+        $this->upcomingBirthdays = [
+            'currentMonth' => $currentMonthBirthdays,
+            'currentWeek' => $currentWeekBirthdays
+        ];
+
+        foreach ($currentMonthBirthdays as $birthday) {
+            $birthday->formatted_date = Carbon::parse($birthday->birthday)->format('F jS');
+        }
+
+        foreach ($currentWeekBirthdays as $birthday) {
+            $birthday->formatted_date = Carbon::parse($birthday->birthday)->format('F jS');
+        }
+
+    }
     /**
      * Prepare notification data to be sent to the email notification template along with the authenticated user
      */

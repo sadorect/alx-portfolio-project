@@ -78,6 +78,7 @@
           </form>
 <hr>
           <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Upload CSV Data</label>
+        
           <form action="/upload-csv" method="POST" enctype="multipart/form-data" class="forms-sample">
             @csrf
             <input type="hidden" name="user_id" value="{{Auth::user()->id}}" class="form-control" id="exampleInputUsername2" placeholder="Name">

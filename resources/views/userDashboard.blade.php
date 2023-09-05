@@ -75,7 +75,7 @@ $wedding = \App\Models\Anniversary::where('user_id', $userid)->where('wedding', 
 
     @php
  $today = \Carbon\Carbon::today();
-        $endDate = $today->copy()->addDays(30);
+        $endDate = $today->copy()->addDays(31);
 
         $user = Auth::user();
         $upcomingWeddings = $user->anniversary()
@@ -90,7 +90,19 @@ $wedding = \App\Models\Anniversary::where('user_id', $userid)->where('wedding', 
             ->orderByRaw("DATE_FORMAT(birthday, '%m-%d')")
             ->count();
 
-           
+    $currentMonthWedding = $user->anniversary()
+    ->whereNotNull('wedding')
+    ->whereMonth('wedding', $today->month)
+   // ->whereDay('wedding', $this->today->day)
+    ->orderBy('wedding')
+    ->count();
+
+    $currentMonthBirthday = $user->anniversary()
+    ->whereNotNull('birthday')
+    ->whereMonth('birthday', $today->month)
+   // ->whereDay('birthday', $this->today->day)
+    ->orderBy('birthday')
+    ->count();
 @endphp
 
 
@@ -101,14 +113,14 @@ $wedding = \App\Models\Anniversary::where('user_id', $userid)->where('wedding', 
         <div class="card-body mx-auto">
 
           <h3 class="card-title">Upcoming Birthdays</h3>
-              <span class="mb-4 p-4">Next 30 Days</span>
+              <span class="mb-4 p-4">Next 31 Days</span>
 
 
           <div class="col-lg-4 col-md-4 col-sm-12 info-block mx-auto">
             <div class="info-block-one">
                 <div class="inner-box">
-                   
-                    <h4>{{$upcomingBirthdays}}</h4>
+                  <a href="{{route('upcoming.birthdays')}}"> 
+                    <h4>{{$upcomingBirthdays}}</h4></a>
                     
                 </div>
             </div>
@@ -118,25 +130,69 @@ $wedding = \App\Models\Anniversary::where('user_id', $userid)->where('wedding', 
     </div>
 
 
-    <div class="col-md-6 grid-margin items-center mx-auto ">
-      <div class="card bg-primary text-white">
-        <div class="card-body mx-auto">
+        <div class="col-md-6 grid-margin items-center mx-auto ">
+          <div class="card bg-primary text-white">
+            <div class="card-body mx-auto">
 
-          <h3 class="card-title">Upcoming Weddings</h3>
-          <span class="mb-4 p-4">Next 30 Days</span>
+              <h3 class="card-title">Upcoming Weddings</h3>
+              <span class="mb-4 p-4">Next 31 Days</span>
 
-          <div class="col-lg-4 col-md-4 col-sm-12 info-block mx-auto">
-            <div class="info-block-one">
-                <div class="inner-box">
-                    
-                    <h4>{{$upcomingWeddings}}</h4>
-                    
+              <div class="col-lg-4 col-md-4 col-sm-12 info-block mx-auto">
+                <div class="info-block-one">
+                    <div class="inner-box text-white">
+                      <a href="{{route('upcoming.weddings')}}"> 
+                        <h4 class="text-white">{{$upcomingWeddings}}</h4></a>
+                        
+                    </div>
                 </div>
             </div>
+            </div>
+          </div>
         </div>
+
+        
+        <div class="col-md-6 grid-margin items-center mx-auto ">
+          <div class="card bg-black text-white">
+            <div class="card-body mx-auto">
+    
+              <h3 class="card-title">This Month Birthdays</h3>
+                  <span class="mb-4 p-4">{{date('F')}}</span>
+    
+    
+              <div class="col-lg-4 col-md-4 col-sm-12 info-block mx-auto">
+                <div class="info-block-one">
+                    <div class="inner-box">
+                       
+                       <a href="{{route('upcoming.birthdays')}}"> <h4>{{$currentMonthBirthday}}</h4></a>
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+        
+
+        <div class="col-md-6 grid-margin items-center mx-auto ">
+          <div class="card bg-brown text-black">
+            <div class="card-body mx-auto">
+              
+              <h3 class="card-title">This Month Weddings</h3>
+              <span class="mb-4 p-4">{{date('F')}}</span>
+    
+              <div class="col-lg-4 col-md-4 col-sm-12 info-block mx-auto">
+                <div class="info-block-one">
+                    <div class="inner-box">
+                      <a href="{{route('upcoming.weddings')}}">  
+                        <h4>{{$currentMonthWedding}}</h4></a>
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+
   </div>
 
 
