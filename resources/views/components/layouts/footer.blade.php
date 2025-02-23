@@ -82,6 +82,7 @@
           updateCount();
       });
   </script>
+  @livewireScripts
   </body>
   </html>
   

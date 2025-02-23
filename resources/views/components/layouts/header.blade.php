@@ -22,6 +22,9 @@
             transition: all 0.3s ease;
         }
     </style>
+    <!-- Add before closing </head> tag -->
+@livewireStyles
+
 </head>
 <body>
     <!-- Navigation -->
