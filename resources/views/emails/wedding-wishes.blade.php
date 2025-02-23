@@ -1,12 +1,26 @@
 @component('mail::message')
-# Happy Wedding Anniversary {{ $celebrant->title }} {{ $celebrant->name }}!
+# 💑 Happy Wedding Anniversary!
 
-Congratulations on another year of love, laughter, and beautiful memories together. May your journey continue to be filled with joy and endless blessings.
+{{ $message }}
 
-@component('mail::button', ['url' => ''])
-Celebrate Now
+Celebrating your love story:
+- Another year of beautiful memories
+- Growing stronger together
+- Building dreams as one
+- Sharing life's precious moments
+
+@component('mail::button', ['url' => config('app.url'), 'color' => 'success'])
+View Your Anniversary Card
 @endcomponent
 
-Best Wishes,<br>
+@component('mail::panel')
+"Here's to many more years of love, laughter, and happiness together!"
+@endcomponent
+
+With Love,<br>
 {{ config('app.name') }}
+
+<x-mail::subcopy>
+    Sent with ❤️ from {{ config('app.name') }}
+</x-mail::subcopy>
 @endcomponent
