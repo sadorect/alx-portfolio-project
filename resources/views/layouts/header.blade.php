@@ -38,7 +38,7 @@
 </div>
                 <div class="flex items-center space-x-4">
                     @auth
-                        <a href="{{route('dashboard')}}" class="px-4 py-2 rounded-md text-purple-600 hover:text-purple-800">Dashboard</a>
+                        <a href="{{route('dashboard')}}" class="px-4 py-2 rounded-md text-purple-600 hover:text-purple-800">{{ $header ?? 'Dashboard'}}</a>
                         <div class="relative">
                             <button class="flex items-center text-gray-700 focus:outline-none">
                                 <img class="w-8 h-8 rounded-full" src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" alt="Profile">
@@ -53,6 +53,7 @@
                         <a href="{{route('login')}}" class="px-4 py-2 rounded-md text-purple-600 hover:text-purple-800">Login</a>
                         <a href="{{route('register')}}" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700">Get Started</a>
                     @endauth
-                </div>            </div>
+                </div>  
+             </div>
         </div>
     </nav>

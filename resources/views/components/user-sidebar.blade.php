@@ -3,10 +3,15 @@
       <svg class="w-8 h-8 text-purple-600" viewBox="0 0 40 40">
           <path fill="currentColor" d="M20 3.33a16.67 16.67 0 1 0 0 33.34 16.67 16.67 0 0 0 0-33.34zm-1.67 25h3.34v-3.33h-3.34V28.33zm0-6.66h3.34V11.67h-3.34v10z"/>
       </svg>
-      <span class="ml-2 text-xl font-bold text-purple-600">CelebrationHub</span>
+      <span class="ml-2 text-xl font-bold text-purple-600"></span>
   </div>
   <nav class="mt-6">
+    
     <div class="px-4 space-y-3">
+        <a href="" class="flex items-center px-4 py-3 text-gray-700 {{ request()->routeIs('dashboard') ? 'bg-gray-100' : '' }} rounded-lg">
+            <i class="fas fa- text-brand-600"></i>
+            <span class="mx-4">{{ $header ?? 'Dashboard' }}</span>
+        </a>
         <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3 text-gray-700 {{ request()->routeIs('dashboard') ? 'bg-gray-100' : '' }} rounded-lg">
             <i class="fas fa-home text-brand-600"></i>
             <span class="mx-4">Dashboard</span>
