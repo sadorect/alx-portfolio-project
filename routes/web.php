@@ -18,6 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('celebrants', CelebrantController::class);
+// Add this route within your auth middleware group
+Route::post('/celebrants/import', [CelebrantController::class, 'import'])->name('celebrants.import');
+Route::get('/celebrants/sample', [CelebrantController::class, 'downloadSample'])->name('celebrants.sample');
 
 
      

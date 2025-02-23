@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Log;
+use Carbon\Carbon;
 use App\Models\Celebrant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CelebrantController extends Controller
 {
@@ -71,4 +74,75 @@ class CelebrantController extends Controller
         return redirect()->route('celebrants.index')
             ->with('success', 'Celebrant deleted successfully');
     }
+
+    // Add this method to the existing CelebrantController
+    public function import(Request $request)
+{
+    $request->validate([
+        'csv_file' => 'required|file|mimes:csv,txt'
+    ]);
+
+    $file = $request->file('csv_file');
+    $path = $file->getRealPath();
+    
+    $data = array_map('str_getcsv', file($path));
+    $headers = array_shift($data);
+
+    DB::beginTransaction();
+    
+    try {
+        foreach ($data as $row) {
+            $celebrantData = array_combine($headers, $row);
+            
+            $celebrant = auth()->user()->celebrants()->create([
+                'title' => $celebrantData['title'] ?? null,
+                'name' => $celebrantData['name'],
+                'email' => $celebrantData['email'] ?? null,
+                'phone' => $celebrantData['phone'] ?? null,
+                'birthday' => !empty($celebrantData['birthday']) ? Carbon::parse($celebrantData['birthday']) : null,
+                'wedding' => !empty($celebrantData['wedding']) ? Carbon::parse($celebrantData['wedding']) : null,
+                'notes' => $celebrantData['notes'] ?? null,
+            ]);
+
+          
+        }
+        
+        DB::commit();
+        return redirect()->route('celebrants.index')->with('success', 'Celebrants imported successfully');
+        
+    } catch (\Exception $e) {
+        DB::rollBack();
+        Log::error('CSV import failed', ['error' => $e->getMessage()]);
+        return redirect()->back()->with('error', 'Import failed. Please check your CSV format.');
+    }
+}
+
+
+    // Add this method to download sample CSV
+    public function downloadSample()
+    {
+        $headers = [
+            'title', 'name', 'email', 'phone', 'birthday', 'wedding', 'notes'
+        ];
+        
+        $sampleData = [
+            ['Mr.', 'John Doe', 'john@example.com', '1234567890', '1990-01-01', '2020-06-15', 'Sample notes'],
+        ];
+
+        $callback = function() use($headers, $sampleData) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $headers);
+            foreach ($sampleData as $row) {
+                fputcsv($file, $row);
+            }
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="celebrants-sample.csv"',
+        ]);
+    }
+
+
 }

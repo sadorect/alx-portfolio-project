@@ -2,7 +2,42 @@
   <x-slot name="header">
       Add New Celebrant
   </x-slot>
+@if ($errors->any())
+      <div class="mb-4 bg-red-50 text-red-700 p-4 rounded-lg">
+          <ul class="list-disc list-inside">
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+  @endif
 
+  <div class="max-w-2xl mx-auto space-y-6">
+    <!-- CSV Upload Section -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-lg font-medium text-gray-900 mb-4">Bulk Import Celebrants</h2>
+        <form action="{{ route('celebrants.import') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="space-y-4">
+                <div>
+                    <label for="csv_file" class="block text-sm font-medium text-gray-700">Upload CSV File</label>
+                    <input type="file" name="csv_file" id="csv_file" accept=".csv" 
+                        class="mt-1 block w-full text-sm text-gray-500
+                        file:mr-4 file:py-2 file:px-4
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-semibold
+                        file:bg-brand-50 file:text-brand-700
+                        hover:file:bg-brand-100">
+                </div>
+                <div class="flex items-center justify-between">
+                    <a href="{{ route('celebrants.sample') }}" class="text-sm text-brand-600 hover:text-brand-500">Download Sample CSV</a>
+                    <button type="submit" class="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700">
+                        Import Celebrants
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
   <div class="max-w-2xl mx-auto">
       <form action="{{ route('celebrants.store') }}" method="POST" class="bg-white rounded-lg shadow p-6">
           @csrf
