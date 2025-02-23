@@ -22,7 +22,6 @@
             transition: all 0.3s ease;
         }
     </style>
-    @Vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
     <!-- Navigation -->

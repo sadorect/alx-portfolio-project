@@ -6,23 +6,27 @@
       <span class="ml-2 text-xl font-bold text-purple-600">CelebrationHub</span>
   </div>
   <nav class="mt-6">
-      <div class="px-4 space-y-3">
-          <a href="#" class="flex items-center px-4 py-3 text-gray-700 bg-gray-100 rounded-lg">
-              <i class="fas fa-home text-purple-600"></i>
-              <span class="mx-4">Dashboard</span>
-          </a>
-          <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
-              <i class="fas fa-birthday-cake text-purple-600"></i>
-              <span class="mx-4">Birthdays</span>
-          </a>
-          <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
-              <i class="fas fa-ring text-purple-600"></i>
-              <span class="mx-4">Anniversaries</span>
-          </a>
-          <a href="#" class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-lg">
-              <i class="fas fa-cog text-purple-600"></i>
-              <span class="mx-4">Settings</span>
-          </a>
-      </div>
-  </nav>
+    <div class="px-4 space-y-3">
+        <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-3 text-gray-700 {{ request()->routeIs('dashboard') ? 'bg-gray-100' : '' }} rounded-lg">
+            <i class="fas fa-home text-brand-600"></i>
+            <span class="mx-4">Dashboard</span>
+        </a>
+        <a href="{{ route('celebrants.index') }}" class="flex items-center px-4 py-3 text-gray-600 {{ request()->routeIs('celebrants.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100 rounded-lg">
+            <i class="fas fa-users text-brand-600"></i>
+            <span class="mx-4">Celebrants</span>
+        </a>
+        <a href="{{ route('birthdays') }}" class="flex items-center px-4 py-3 text-gray-600 {{ request()->routeIs('birthdays') ? 'bg-gray-100' : '' }} hover:bg-gray-100 rounded-lg">
+            <i class="fas fa-birthday-cake text-brand-600"></i>
+            <span class="mx-4">Birthdays</span>
+        </a>
+        <a href="{{ route('anniversaries') }}" class="flex items-center px-4 py-3 text-gray-600 {{ request()->routeIs('anniversaries') ? 'bg-gray-100' : '' }} hover:bg-gray-100 rounded-lg">
+            <i class="fas fa-ring text-brand-600"></i>
+            <span class="mx-4">Anniversaries</span>
+        </a>
+        <a href="{{ route('settings') }}" class="flex items-center px-4 py-3 text-gray-600 {{ request()->routeIs('settings') ? 'bg-gray-100' : '' }} hover:bg-gray-100 rounded-lg">
+            <i class="fas fa-cog text-brand-600"></i>
+            <span class="mx-4">Settings</span>
+        </a>
+    </div>
+</nav>
 </div>
