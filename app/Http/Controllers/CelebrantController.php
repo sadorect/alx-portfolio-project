@@ -35,6 +35,12 @@ class CelebrantController extends Controller
 
         auth()->user()->celebrants()->create($validated);
 
+        auth()->user()->logActivity(
+            'celebrant_added',
+            "Added new celebrant: {$celebrant->name}",
+            ['celebrant_id' => $celebrant->id]
+        );
+        
         return redirect()->route('celebrants.index')
             ->with('success', 'Celebrant added successfully');
     }
@@ -62,6 +68,12 @@ class CelebrantController extends Controller
         ]);
 
         $celebrant->update($validated);
+
+        auth()->user()->logActivity(
+            'celebrant_updated',
+            "Updated celebrant: {$celebrant->name}",
+            ['celebrant_id' => $celebrant->id]
+        );
 
         return redirect()->route('celebrants.index')
             ->with('success', 'Celebrant updated successfully');

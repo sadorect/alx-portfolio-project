@@ -28,6 +28,15 @@ class TemplateSettings extends Component
             ]
         );
 
+        auth()->user()->logActivity(
+            'template_updated',
+            'Updated message templates',
+            [
+                'birthday_template' => $this->birthdayTemplate,
+                'wedding_template' => $this->weddingTemplate
+            ]
+        );
+        
         $this->emit('saved');
     }
 

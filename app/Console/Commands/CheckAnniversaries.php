@@ -46,11 +46,25 @@ class CheckAnniversaries extends Command
         foreach($birthdays as $celebrant) {
             Mail::to($celebrant->email)
                 ->send(new BirthdayWishes($celebrant));
+
+                $celebrant->user->logActivity(
+                    'wish_sent',
+                    "Sent birthday wishes to {$celebrant->name}",
+                    ['celebrant_id' => $celebrant->id, 'type' => 'birthday']
+                );
+
         }
 
         foreach($weddings as $celebrant) {
             Mail::to($celebrant->email)
                 ->send(new WeddingWishes($celebrant));
+
+                $celebrant->user->logActivity(
+                    'wish_sent',
+                    "Sent wedding anniversary wishes to {$celebrant->name}",
+                    ['celebrant_id' => $celebrant->id, 'type' => 'wedding']
+                );
+
         }
     }
 }

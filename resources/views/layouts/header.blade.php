@@ -10,7 +10,7 @@
 <meta property="og:image" content="/images/celebration-hub-og.jpg">
 <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <title>CelebrationHub - Never Miss Special Moments</title>
+    <title>MyAnniversary - Never Miss Special Moments</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -34,7 +34,7 @@
   <svg class="w-10 h-10 text-purple-600" viewBox="0 0 40 40">
       <path fill="currentColor" d="M20 3.33a16.67 16.67 0 1 0 0 33.34 16.67 16.67 0 0 0 0-33.34zm-1.67 25h3.34v-3.33h-3.34V28.33zm0-6.66h3.34V11.67h-3.34v10z"/>
   </svg>
-  <span class="text-2xl font-bold text-purple-600 ml-2">CelebrationHub</span>
+  <span class="text-2xl font-bold text-purple-600 ml-2">MyAnniversary</span>
 </div>
                 <div class="flex items-center space-x-4">
                     @auth
