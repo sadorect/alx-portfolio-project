@@ -57,4 +57,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Celebrant::class);
     }
+
+    public function scopeSearch($query, $term)
+{
+    return $query->where(function($query) use ($term) {
+        $query->where('name', 'like', "%{$term}%")
+              ->orWhere('email', 'like', "%{$term}%");
+    });
+}
+
 }

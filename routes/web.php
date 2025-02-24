@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CelebrantController;
 
@@ -40,3 +41,13 @@ Route::get('/celebrants/sample', [CelebrantController::class, 'downloadSample'])
 
 
 require __DIR__.'/auth.php';
+
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/activities', [AdminController::class, 'activities'])->name('admin.activities');
+    Route::get('/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
+    Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+    Route::get('/admin/users/{user}', [AdminController::class, 'showUser'])->name('admin.users.show');
+
+});
