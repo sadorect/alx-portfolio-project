@@ -49,5 +49,6 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
     Route::get('/admin/users/{user}', [AdminController::class, 'showUser'])->name('admin.users.show');
-
+    Route::get('/activities', [AdminController::class, 'activities'])->name('admin.activities');
+    Route::get('/activities/{activity}', [AdminController::class, 'showActivity'])->name('admin.activities.show');
 });

@@ -50,8 +50,13 @@ class AdminController extends Controller
 
     public function activities()
     {
-        return view('admin.activities');
+        return view('admin.activities.index');
     }
+    public function showActivity(Activity $activity)
+{
+    return view('admin.activities.show', compact('activity'));
+}
+
 
     public function notifications()
     {
