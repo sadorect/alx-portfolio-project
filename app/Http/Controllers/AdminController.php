@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Activity;
 use App\Models\Celebrant;
+use App\Models\Notification;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -57,11 +58,36 @@ class AdminController extends Controller
     return view('admin.activities.show', compact('activity'));
 }
 
-
     public function notifications()
     {
-        return view('admin.notifications');
+        return view('admin.notifications.index');
     }
+
+    public function showNotification(Notification $notification)
+    {
+        return view('admin.notifications.show', compact('notification'));
+    }
+
+    public function storeNotification(Request $request)
+    {
+        $validated = $request->validate([
+            'type' => 'required|string',
+            'message' => 'required|string',
+            'priority' => 'required|in:low,medium,high',
+        ]);
+
+        $notification = Notification::create($validated);
+
+        return redirect()->route('admin.notifications')
+            ->with('success', 'Notification broadcast successfully');
+    }
+
+    public function resolveNotification(Notification $notification)
+    {
+        $notification->update(['status' => 'resolved']);
+        return back()->with('success', 'Notification marked as resolved');
+    }
+    
 
     public function settings()
     {

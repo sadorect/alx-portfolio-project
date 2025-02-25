@@ -45,10 +45,14 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
-    Route::get('/activities', [AdminController::class, 'activities'])->name('admin.activities');
-    Route::get('/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
     Route::get('/admin/users/{user}', [AdminController::class, 'showUser'])->name('admin.users.show');
+
     Route::get('/activities', [AdminController::class, 'activities'])->name('admin.activities');
     Route::get('/activities/{activity}', [AdminController::class, 'showActivity'])->name('admin.activities.show');
+   
+    Route::get('/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
+    Route::get('/notifications/{notification}', [AdminController::class, 'showNotification'])->name('admin.notifications.show');
+    Route::post('/notifications', [AdminController::class, 'storeNotification'])->name('admin.notifications.store');
+    Route::put('/notifications/{notification}/resolve', [AdminController::class, 'resolveNotification'])->name('admin.notifications.resolve');
 });
