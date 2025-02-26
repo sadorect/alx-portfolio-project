@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\UpcomingEventsTimeline;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Setting;
@@ -12,31 +13,40 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-  public function __construct()
-{
-   
-        if (!auth()->user()->is_admin) {
-            return redirect('/');
-        }
-      
-}
+    public function __construct()
+    {
+       
+            if (!auth()->user()->is_admin) {
+                return redirect('/');
+            }
+          
+    }
 
     public function dashboard()
     {
         $totalUsers = User::count();
         $newUsers = User::where('created_at', '>=', Carbon::now()->subWeek())->count();
-        $totalCelebrations = Celebrant::count();
+        // If the method only takes days parameter and returns all events
+$allUpcomingEvents = (new UpcomingEventsTimeline())->getUpcomingEvents(30);
+$totalBirthdays = $allUpcomingEvents->where('type', 'birthday')->count();
+$totalAnniversaries = $allUpcomingEvents->where('type', 'anniversary')->count();
+$totalCelebrations = $totalAnniversaries + $totalBirthdays;
+        
         $notificationsSent = Activity::where('type', 'wish_sent')->count();
         $activeUsers = User::where('last_login_at', '>=', Carbon::now()->subDay())->count();
-
+//dd($totalAnniversaries, $totalBirthdays);
         return view('admin.dashboard', compact(
             'totalUsers',
             'newUsers',
-            'totalCelebrations',
+            'totalBirthdays',
+            'totalAnniversaries',
             'notificationsSent',
-            'activeUsers'
+            'activeUsers',
+            'totalCelebrations'
         ));
     }
+
+    
 
     public function users()
     {

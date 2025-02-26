@@ -3,7 +3,7 @@
         Wedding Anniversaries
     </x-slot>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="lg:ml-60 grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Today's Anniversaries -->
         <div class="bg-white rounded-lg shadow p-6">
             <h2 class="text-lg font-semibold mb-4">Today's Anniversaries</h2>

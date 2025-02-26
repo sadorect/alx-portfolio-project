@@ -23,4 +23,13 @@
         <i class="fas fa-cog w-5 h-5"></i>
         <span class="mx-4">Settings</span>
     </a>
+
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <a href="{{ route('logout') }}" class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900 rounded-lg" onclick="event.preventDefault(); this.closest('form').submit();">
+            <i class="fas fa-sign-out-alt w-5 h-5"></i>
+            <span class="mx-4">Logout</span>
+        </a>
+    </form>
+
 </nav>

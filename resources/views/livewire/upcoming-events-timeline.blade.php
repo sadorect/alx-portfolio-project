@@ -15,6 +15,6 @@
             </div>
         </div>
     @empty
-        <p class="text-gray-500 text-center">No upcoming events in the next 7 days</p>
+        <p class="text-gray-500 text-center">No upcoming events in the next {{$days}} days</p>
     @endforelse
 </div>

@@ -16,7 +16,7 @@
                 <i class="fas fa-calendar-check text-3xl text-purple-600"></i>
                 <div class="ml-4">
                     <h3 class="text-gray-500 dark:text-gray-400 text-sm">Total Celebrations</h3>
-                    <p class="text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $totalCelebrations }}</p>
+                    <p class="text-2xl font-semibold text-gray-700 dark:text-gray-200">{{ $totalCelebrations ?? 0}}</p>
                 </div>
             </div>
         </div>

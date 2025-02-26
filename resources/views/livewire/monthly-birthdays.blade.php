@@ -12,6 +12,23 @@
                     {{ Carbon\Carbon::parse($celebrant->birthday)->format('M d') }}
                 </p>
             </div>
+            <div class="w-24 flex-shrink-0 text-xs md:text-sm text-gray-400 text-right">
+                @php
+                    $anniversaryThisYear = Carbon\Carbon::parse($celebrant->birthday)->setYear((int)date('Y'));
+                    $now = Carbon\Carbon::now();
+                    $daysUntil = $now->diffInDays($anniversaryThisYear, false);
+                    $years = (int)date('Y') - Carbon\Carbon::parse($celebrant->birthday)->year;
+                    
+                    if ($daysUntil < 0) {
+                        echo abs(ceil($daysUntil)) . " days ago";
+                    } elseif ($daysUntil == 0) {
+                        echo "Today! (" . $years . " years)";
+                    } else {
+                        echo "in " . ceil($daysUntil). " days";
+                    }   
+                    
+                @endphp
+            </div>
         </div>
     @empty
         <p class="text-gray-500 text-center">No birthdays this month</p>

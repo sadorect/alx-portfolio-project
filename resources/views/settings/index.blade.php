@@ -3,7 +3,7 @@
         Settings
     </x-slot>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="lg:mx-60 grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Notification Settings -->
         <div class="bg-white rounded-lg shadow p-6">
             <h2 class="text-lg font-semibold mb-4">Notification Preferences</h2>
