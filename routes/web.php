@@ -46,6 +46,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
+    Route::get('/settings/email', [AdminController::class, 'emailSettings'])->name('admin.settings.email');
+    Route::post('/settings/test-email', [AdminController::class, 'testEmail'])->name('admin.settings.test-email');
+    Route::get('/settings/notifications', [AdminController::class, 'notificationSettings'])
+    ->name('admin.settings.notifications');
+    Route::get('/settings/system', [AdminController::class, 'systemSettings'])
+        ->name('admin.settings.system');
+    
     Route::get('/admin/users/{user}', [AdminController::class, 'showUser'])->name('admin.users.show');
 
     Route::get('/activities', [AdminController::class, 'activities'])->name('admin.activities');

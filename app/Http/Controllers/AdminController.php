@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Setting;
 use App\Models\Activity;
 use App\Models\Celebrant;
 use App\Models\Notification;
@@ -91,6 +92,45 @@ class AdminController extends Controller
 
     public function settings()
     {
-        return view('admin.settings');
+        return view('admin.settings.index');
     }
+
+    public function systemSettings()
+{
+    return view('admin.settings.system');
+}
+    public function updateSystemSettings(Request $request)
+    {
+        $validated = $request->validate([
+            'app_name' => 'required|string',
+            'app_description' => 'required|string',
+            'app_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'app_favicon' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        if ($request->hasFile('app_logo')) {
+            $validated['app_logo'] = $request->file('app_logo')->store('public/images');
+        }
+
+        if ($request->hasFile('app_favicon')) {
+            $validated['app_favicon'] = $request->file('app_favicon')->store('public/images');
+        }
+
+        Setting::updateOrCreate(['key' => 'app_name'], ['value' => $validated['app_name']]);
+        Setting::updateOrCreate(['key' => 'app_description'], ['value' => $validated['app_description']]);
+        Setting::updateOrCreate(['key' => 'app_logo'], ['value' => $validated['app_logo']]);
+        Setting::updateOrCreate(['key' => 'app_favicon'], ['value' => $validated['app_favicon']]);
+
+        return redirect()->route('admin.settings.system')
+            ->with('success', 'System settings updated successfully');
+    }
+
+    public function notificationSettings()
+{
+    return view('admin.settings.notifications');
+}
+ public function emailSettings()
+ {
+    return view('admin.settings.email');
+
+}
 }
