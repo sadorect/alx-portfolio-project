@@ -13,6 +13,17 @@ class NotificationsList extends Component
     public $type = '';
     public $status = '';
     public $priority = '';
+    public $search = '';
+    public $perPage = 10;
+
+    protected $queryString = [
+        'type' => ['except' => ''],
+        'status' => ['except' => ''],
+        'priority' => ['except' => ''],
+        'search' => ['except' => ''],
+        'page' => ['except' => 1],
+    ];
+    
 
     public function render()
     {
@@ -20,11 +31,33 @@ class NotificationsList extends Component
             ->when($this->type, fn($q) => $q->where('type', $this->type))
             ->when($this->status, fn($q) => $q->where('status', $this->status))
             ->when($this->priority, fn($q) => $q->where('priority', $this->priority))
+            ->when($this->search, function($q) {
+                return $q->where('message', 'like', '%' . $this->search . '%')
+                         ->orWhere('data', 'like', '%' . $this->search . '%');
+            })
             ->latest()
-            ->paginate(10);
+            ->paginate($this->perPage);
 
         return view('livewire.admin.notifications-list', [
-            'notifications' => $notifications
+            'notifications' => $notifications,
+            'types' => Notification::select('type')->distinct()->pluck('type'),
+            'statuses' => Notification::select('status')->distinct()->pluck('status'),
+            'priorities' => Notification::select('priority')->distinct()->pluck('priority'),
         ]);
+    }
+    
+    public function markAsResolved($id)
+    {
+        $notification = Notification::findOrFail($id);
+        $notification->status = 'resolved';
+        $notification->save();
+        
+        $this->dispatch('notification-updated', ['message' => 'Notification marked as resolved.']);
+    }
+    
+    public function resetFilters()
+    {
+        $this->reset(['type', 'status', 'priority', 'search']);
+        $this->resetPage();
     }
 }

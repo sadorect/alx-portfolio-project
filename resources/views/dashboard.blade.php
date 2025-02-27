@@ -3,8 +3,9 @@
         if (Auth::user()->is_admin) {
             return redirect()->route('admin.dashboard');
         } else {
-            $totalContacts = \App\Models\Celebrant::count();
-            $newContactsThisMonth = \App\Models\Celebrant::whereMonth('created_at', now()->month)->count();
+            $totalContacts = \App\Models\Celebrant::where('user_id', Auth::id())->count();
+            $newContactsThisMonth = \App\Models\Celebrant::where('user_id', Auth::id())
+                                                        ->whereMonth('created_at', now()->month)->count();
             $nextDays = 30;
             $allUpcomingEvents = (new \App\Http\Livewire\UpcomingEventsTimeline())->getUpcomingEvents($nextDays);
                     $totalBirthdays = $allUpcomingEvents->where('type', 'birthday')->count();

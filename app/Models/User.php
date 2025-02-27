@@ -4,10 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Celebrant;
+use App\Models\UserSetting;
+use App\Traits\LogsActivity;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
@@ -65,5 +66,26 @@ class User extends Authenticatable
               ->orWhere('email', 'like', "%{$term}%");
     });
 }
+
+public function logActivity($type, $description, $metadata = [])
+{
+    return $this->activities()->create([
+        'type' => $type,
+        'description' => $description,
+        'metadata' => $metadata
+    ]);
+}
+
+public function activities()
+{
+    return $this->hasMany(Activity::class);
+}
+
+public function settings()
+{
+    return $this->hasOne(UserSetting::class);
+}
+
+
 
 }

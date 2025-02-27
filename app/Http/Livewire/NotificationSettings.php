@@ -34,7 +34,7 @@ class NotificationSettings extends Component
             ]
         );
 
-        $this->emit('saved');
+        $this->dispatch('saved');
     }
 
     public function render()
