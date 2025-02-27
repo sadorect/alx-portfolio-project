@@ -33,14 +33,14 @@ class CelebrantController extends Controller
             'notes' => 'nullable|string'
         ]);
 
-        auth()->user()->celebrants()->create($validated);
+
+        $celebrant = auth()->user()->celebrants()->create($validated);
 
         auth()->user()->logActivity(
             'celebrant_added',
-            "Added new celebrant: {$celebrant->name}",
+            "Added new celebrant: {$validated['name']}",
             ['celebrant_id' => $celebrant->id]
-        );
-        
+        );        
         return redirect()->route('celebrants.index')
             ->with('success', 'Celebrant added successfully');
     }
