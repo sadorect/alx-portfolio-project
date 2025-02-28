@@ -31,7 +31,7 @@ $allUpcomingEvents = (new UpcomingEventsTimeline())->getUpcomingEvents(30);
 $totalBirthdays = $allUpcomingEvents->where('type', 'birthday')->count();
 $totalAnniversaries = $allUpcomingEvents->where('type', 'anniversary')->count();
 $totalCelebrations = $totalAnniversaries + $totalBirthdays;
-        
+ $totalCelebrants = Celebrant::all()->count();       
         $notificationsSent = Activity::where('type', 'wish_sent')->count();
         $activeUsers = User::where('last_login_at', '>=', Carbon::now()->subDay())->count();
 //dd($totalAnniversaries, $totalBirthdays);
@@ -42,7 +42,8 @@ $totalCelebrations = $totalAnniversaries + $totalBirthdays;
             'totalAnniversaries',
             'notificationsSent',
             'activeUsers',
-            'totalCelebrations'
+            'totalCelebrations',
+            'totalCelebrants'
         ));
     }
 
